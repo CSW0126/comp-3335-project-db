@@ -1,8 +1,8 @@
 <?php
-$hostname="localhost";
-$username = "root";
-$pwd="";
-$db = "projectdb";
+$hostname="db";
+$username = "user";
+$pwd="test";
+$db = "myDb";
 $conn=mysqli_connect($hostname,$username,$pwd,$db) ;
 
 if(!$conn){
