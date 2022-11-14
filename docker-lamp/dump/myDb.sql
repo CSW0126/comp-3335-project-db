@@ -51,7 +51,7 @@ CREATE TABLE `customer` (
   `customerEmail` varchar(50) NOT NULL,
   `firstName` varchar(255) NOT NULL,
   `lastName` varchar(255) NOT NULL,
-  `password` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `phoneNumber` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -167,7 +167,7 @@ INSERT INTO `shop` (`shopID`, `address`) VALUES
 CREATE TABLE `tenant` (
   `tenantID` varchar(50) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `password` varchar(50) NOT NULL
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `tenant` (`tenantID`, `name`, `password`) VALUES

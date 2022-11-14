@@ -14,6 +14,7 @@ if (isset($_POST['role'])) {
             $customerEmail = $_POST['email'];
             $password = $_POST['pwd'];
 
+
             //check empty field
             if (empty($customerEmail) || empty($password)) {
                 header("Location: ../login.php?error=emptyfields&role=customer");
@@ -34,7 +35,7 @@ if (isset($_POST['role'])) {
 
                     //get row
                     if ($row = mysqli_fetch_assoc($result)) {
-                        $pwdCheck = ($password == $row['password']);
+                        $pwdCheck = password_verify ($password,$row['password']);
                         //if false
                         if ($pwdCheck == false) {
                             header("Location: ../login.php?error=wrong&role=customer");
@@ -89,6 +90,7 @@ if (isset($_POST['role'])) {
 
                     //get row
                     if ($row = mysqli_fetch_assoc($result)) {
+                        
                         $pwdCheck = ($password == $row['password']);
                         //if false
                         if ($pwdCheck == false) {

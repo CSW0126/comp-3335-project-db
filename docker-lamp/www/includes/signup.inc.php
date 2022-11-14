@@ -110,7 +110,11 @@ if (isset($_POST['submit'])) {
                         } else {
                             //hash encrypt
                             //$hashPwd = password_hash($password, PASSWORD_DEFAULT);
-
+                            
+                            //hash password
+                            $password = password_hash($password, PASSWORD_DEFAULT);
+                            
+                            
                             mysqli_stmt_bind_param($stmt, "sssss", $customerEmail, $firstName, $lastName, $password, $phoneNumber);
                             mysqli_stmt_execute($stmt);
                             header("Location: ../signup.php?signup=success");
