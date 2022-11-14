@@ -1,43 +1,71 @@
-<html>
- <head>
-  <title>Hello...</title>
+<?php
+require "header.php";
+?>
 
-  <meta charset="utf-8"> 
+<link rel="stylesheet" href="css/index.css">
+<!-- body section -->
+<div id="particles-js" class="pimg1">
+    <div class="header1">
+        <div class="ptext">
+            <span class="border trans">
+                Welcome
+            </span>
 
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+            <?php
+            //if logged in 
+            if (isset($_SESSION['role'])) {
 
-</head>
-<body>
-    <div class="container">
-    <?php echo "<h1>Users</h1>"; ?>
+                if ($_SESSION['role'] == "tenant") {
+                    echo '
+                    <h6>Management Your Business</h6>
+                    <a href="item.php" class="bodybtn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Item
+                        </a>
+                        ';
+                } else if ($_SESSION['role'] == "customer") {
+                    echo '
+                    <h6>View items</h6>
+                    <a href="makeOrder.php" class="bodybtn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Go
+                        </a> 
+                        ';
 
-    <?php
+                    //if not logged in
+                }
+            } else {
+                echo '
+                        <h6>What is your role?</h6>
+                        <a href="login.php?role=' . 'customer' . '" class="bodybtn">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            Customer
+                        </a>
+                        <a href="login.php?role=' . 'tenant' . '" class="bodybtn">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            Tenant
+                        </a>';
+            }
+            ?>
 
-    $conn = mysqli_connect('db', 'user', 'test', "myDb");
 
-    $query = 'SELECT * From Person';
-    $result = mysqli_query($conn, $query);
 
-    echo '<table class="table table-striped">';
-    echo '<thead><tr><th></th><th>id</th><th>name</th><th>age</th></tr></thead>';
-    while($value = $result->fetch_array(MYSQLI_ASSOC)){
-        echo '<tr>';
-        echo '<td><a href="#"><span class="glyphicon glyphicon-search"></span></a></td>';
-        foreach($value as $element){
-            echo '<td>' . $element . '</td>';
-        }
-
-        echo '</tr>';
-    }
-    echo '</table>';
-
-    $result->close();
-
-    mysqli_close($conn);
-
-    ?>
+        </div>
     </div>
-</body>
-</html>
+</div>
+
+<?php
+require "footer.php";
+?>

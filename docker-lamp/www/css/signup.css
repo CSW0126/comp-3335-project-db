@@ -1,0 +1,33 @@
+.large-header {
+  position: relative;
+  width: 100%;
+  background: #111;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center center;
+  z-index: 1;
+}
+
+.demo .large-header {
+  background-image: url(../img/signupBG.jpg);
+}
+
+.main-title {
+  position: absolute;
+  /* left: 23%;
+    top: 10%;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0); */
+  position: absolute;
+  top:10%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.main-title .thin {
+  font-weight: 200;
+}
+
+

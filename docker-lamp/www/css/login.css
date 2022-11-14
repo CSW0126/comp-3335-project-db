@@ -1,0 +1,76 @@
+h1 {
+  padding-bottom: 2rem;
+}
+
+body{
+  background: url(../img/loginBG.jpg);
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.body-container {
+  padding-top: 5%;
+}
+
+.fcontainer {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 8rem 0;
+  height: 40rem;
+  text-align: center;
+}
+.fcontainer h1 {
+  font-size: 4rem;
+  transition-duration: 1s;
+  transition-timing-function: ease-in-put;
+  font-weight: 20rem;
+}
+form {
+  padding: 2rem 0;
+  position: relative;
+  z-index: 2;
+}
+form input {
+  appearance: none;
+  outline: 0;
+  border: 0.1rem solid rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 25rem;
+  border-radius: 0.3rem;
+  padding: 1rem 1.5rem;
+  margin: 0 auto 1rem auto;
+  display: block;
+  text-align: center;
+  font-size: 1.8rem;
+  color: rgb(141, 137, 137);
+  transition-duration: 0.25s;
+  font-weight: 300;
+}
+form input:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+form input:focus {
+  background-color: white;
+  width: 30rem;
+  color: #343a40;
+}
+form button {
+  appearance: none;
+  outline: 0;
+  background-color: white;
+  border: 0;
+  padding: 1rem 1.5rem;
+  color: #343a40;
+  border-radius: 0.3rem;
+  width: 25rem;
+  cursor: pointer;
+  font-size: 1.8rem;
+  transition-duration: 0.25s;
+  margin-bottom: 2rem;
+}
+form button:hover {
+  background-color: #f5f7f9;
+}
+

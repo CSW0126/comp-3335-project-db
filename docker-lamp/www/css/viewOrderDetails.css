@@ -1,0 +1,25 @@
+header {
+  padding-top: 1rem;
+}
+
+.form-body {
+  margin-top: 10rem;
+}
+
+.card {
+  top: 10rem;
+}
+
+body {
+  background: url("../img/orderDetailsBG.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 120%;
+}
+
+.modal-header .close {
+  outline: none;
+}
+
+.alert{
+    top:10rem;
+}

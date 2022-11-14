@@ -1,0 +1,41 @@
+@import "viewOrder.css";
+
+body {
+  color: #566787;
+  background: url("../img/itembg.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 120%;
+}
+
+header a {
+  color: white;
+}
+
+.table-title {
+  background: linear-gradient(40deg, #be93c5, #7bc6cc) !important;
+}
+
+.modal-header .close {
+  outline: none;
+}
+
+header a:hover {
+  color: white;
+}
+
+header nav ul li a::before,
+header nav ul li a::after {
+  background-color: white;
+}
+
+.box-area li {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.alert{
+  top:19rem;
+}
+
+button.close{
+  outline: none;
+}
