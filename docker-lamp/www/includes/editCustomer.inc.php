@@ -79,7 +79,7 @@ if (isset($_POST['submit'])) {
                 } else {
                     //hash encrypt
                     //$hashPwd = password_hash($password, PASSWORD_DEFAULT);
-
+                    $password = password_hash($password, PASSWORD_DEFAULT);
                     mysqli_stmt_bind_param($stmt, "sssss",  $firstName, $lastName, $password, $phoneNumber, $customerEmail);
                     mysqli_stmt_execute($stmt);
                     //update session
