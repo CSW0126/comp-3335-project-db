@@ -21,9 +21,9 @@ if (isset($_GET['orderID'])) {
         $numRow = mysqli_num_rows($result);
     } else if ($role == 'tenant') {
         if (isset($_SESSION['tid'])) {
-            $stmt = $conn->prepare("SELECT * FROM orders WHERE orderID = ?");
+            $stmt = $conn->prepare("SELECT * FROM orders, consignmentstore, tenant WHERE consignmentstore.consignmentStoreID = orders.consignmentStoreID AND consignmentstore.tenantID = tenant.tenantID AND orderID = ? AND tenant.tenantID = ?");
             $orderID = $_GET['orderID'];
-            $stmt->bind_param("i", $orderID);
+            $stmt->bind_param("is", $orderID, $_SESSION['tid']);
             $stmt->execute();
             $result = $stmt->get_result();
             $numRow = mysqli_num_rows($result);
