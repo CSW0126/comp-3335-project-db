@@ -78,7 +78,8 @@ if (isset($_SESSION['role'])) {
                     <tbody>
                         <?php
                         require "connection/mysqli_conn.php";
-                        $stmt = $conn->prepare("SELECT * FROM cart");
+                        $stmt = $conn->prepare("SELECT * FROM cart WHERE customerEmail = ?");
+                        $stmt->bind_param("s", $_SESSION['Email']);
                         $stmt->execute();
                         $result = $stmt->get_result();
 
@@ -150,7 +151,6 @@ require "footer.php";
             var price = $el.find(".itemPrice").val();
             var qty = $el.find(".itemQty").val();
             var rQ = $el.find(".rQ").val();
-            location.reload(true);
             $.ajax({
                 url: "includes/cart.inc.php",
                 method: 'post',
@@ -159,12 +159,13 @@ require "footer.php";
                     qty: qty,
                     itemID: itemID,
                     price: price,
-                    rQ: rQ
+                    rQ: rQ,
                 },
                 success: function(response) {
                     console.log(response);
                 }
             });
+            location.reload(true);
         });
     });
 </script>

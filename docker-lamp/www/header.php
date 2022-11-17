@@ -32,9 +32,10 @@ session_start();
     //check cartQ
     if (isset($_SESSION['role'])) {
         if ($_SESSION['role'] == "customer") {
-            require 'connection/mysqli_conn.php';
+            require 'connection/mysqli_conn_select_cart.php';
             //get num of cart
-            $stmt = $conn->prepare("SELECT * from cart ");
+            $stmt = $conn->prepare("SELECT * from cart WHERE customerEmail = ?");
+            $stmt->bind_param("s", $_SESSION['Email']);
             $stmt->execute();
             $stmt->store_result();
             $rows = $stmt->num_rows();

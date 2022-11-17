@@ -1,6 +1,7 @@
 <?php
 require_once "../connection/mysqli_conn.php";
 session_start();
+
 if (isset($_GET['count'])) {
     $count = $_GET['count'];
     $selectedShopArr = $_POST['shop'];
@@ -11,15 +12,17 @@ if (isset($_GET['count'])) {
     $stmtAddOrderItem = $conn->prepare("INSERT INTO orderitem (orderID,goodsNumber,quantity,sellingPrice) VALUE (?,?,?,?)");
     $stmtSelectGoods = $conn->prepare("SELECT * FROM goods where goodsNumber=?");
     $stmtReduceStock = $conn->prepare("UPDATE goods SET remainingStock=? WHERE goodsNumber=?");
-    $stmt = $conn->prepare("SELECT * FROM cart where consignmentStoreID = ?");
+    $stmt = $conn->prepare("SELECT * FROM cart where consignmentStoreID = ? AND customerEmail=?");
     //group with consignment store id
-    $sql = "SELECT COUNT(*),consignmentStoreID FROM cart GROUP BY consignmentStoreID";
-    $rs = mysqli_query($conn, $sql);
+    $sql = $conn->prepare("SELECT COUNT(*),consignmentStoreID FROM cart WHERE customerEmail=? GROUP BY consignmentStoreID");
+    $sql->bind_param("s", $_SESSION['Email']);
+    $sql->execute();
+    $rs = $sql->get_result();
 
     //for each order group
     while ($rowArray = mysqli_fetch_assoc($rs)) {
         //select all related goods in cart
-        $stmt->bind_param("i", $rowArray['consignmentStoreID']);
+        $stmt->bind_param("is", $rowArray['consignmentStoreID'], $_SESSION['Email']);
         $stmt->execute();
         $result = $stmt->get_result();
         $grand_total = 0;
@@ -41,7 +44,7 @@ if (isset($_GET['count'])) {
         $newOrderID = mysqli_insert_id($conn);
 
         //add order ITEM
-        $stmt->bind_param("i", $rowArray['consignmentStoreID']);
+        $stmt->bind_param("is", $rowArray['consignmentStoreID'], $_SESSION['Email']);
         $stmt->execute();
         $getCartResult = $stmt->get_result();
         while($itemRow = mysqli_fetch_assoc($getCartResult)){
@@ -70,7 +73,8 @@ if (isset($_GET['count'])) {
     }
     echo 'no_error';
     //remove all item from cart
-    $stmt = $conn->prepare("DELETE FROM cart");
+    $stmt = $conn->prepare("DELETE FROM cart WHERE customerEmail=?");
+    $stmt->bind_param("s", $_SESSION['Email']);
     $stmt->execute();
 } else {
     header("location: ../index.php");

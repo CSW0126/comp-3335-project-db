@@ -71,8 +71,8 @@ if (isset($_SESSION['role'])) {
                         </thead>
                         <tbody>
                             <?php
-                            $stmt = $conn->prepare("SELECT * FROM cart where consignmentStoreID = ?");
-                            $stmt->bind_param("i", $rowArray['consignmentStoreID']);
+                            $stmt = $conn->prepare("SELECT * FROM cart where consignmentStoreID = ? AND customerEmail = ?");
+                            $stmt->bind_param("is", $rowArray['consignmentStoreID'], $_SESSION['Email']);
                             $stmt->execute();
                             $result = $stmt->get_result();
                             $grand_total = 0;

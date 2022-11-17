@@ -6,16 +6,6 @@ SET time_zone = "+08:00";
 CREATE DATABASE IF NOT EXISTS `myDb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `myDb`;
 
-CREATE TABLE `cart` (
-  `name` varchar(100) NOT NULL,
-  `price` varchar(100) NOT NULL,
-  `qty` int(11) NOT NULL,
-  `total_price` varchar(100) NOT NULL,
-  `itemID` int(10) NOT NULL,
-  `consignmentStoreID` int(10) NOT NULL,
-  `rQ` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 
 CREATE TABLE `consignmentstore` (
   `consignmentStoreID` int(10) NOT NULL,
@@ -56,9 +46,9 @@ CREATE TABLE `customer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `customer` (`customerEmail`, `firstName`, `lastName`, `password`, `phoneNumber`) VALUES
-('ken@gmail.com', 'ken', 'ken', '123', '67412365'),
-('root@gmail.com', 'root', 'rootuser', '123', '23214567'),
-('taiMan@gmail.com', 'Tai Man', 'Chan', 'marcus123', '52839183');
+('ken@gmail.com', 'ken', 'ken', '$2y$10$9os7b.YQ3N3LGHslu.X/6exlka4f4ftsBdahh4urmKMaVhRJawISq', '67412365'),
+('root@gmail.com', 'root', 'rootuser', '$2y$10$9os7b.YQ3N3LGHslu.X/6exlka4f4ftsBdahh4urmKMaVhRJawISq', '23214567'),
+('taiMan@gmail.com', 'Tai Man', 'Chan', '$2y$10$9os7b.YQ3N3LGHslu.X/6exlka4f4ftsBdahh4urmKMaVhRJawISq', '52839183');
 
 
 CREATE TABLE `goods` (
@@ -171,12 +161,23 @@ CREATE TABLE `tenant` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `tenant` (`tenantID`, `name`, `password`) VALUES
-('ken', 'ken', '123'),
-('marcus888', 'Marcus', 'it888'),
-('root', 'root', '123');
+('ken', 'ken', '$2y$10$9os7b.YQ3N3LGHslu.X/6exlka4f4ftsBdahh4urmKMaVhRJawISq'),
+('marcus888', 'Marcus', '$2y$10$9os7b.YQ3N3LGHslu.X/6exlka4f4ftsBdahh4urmKMaVhRJawISq'),
+('root', 'root', '$2y$10$9os7b.YQ3N3LGHslu.X/6exlka4f4ftsBdahh4urmKMaVhRJawISq');
 
-ALTER TABLE `cart`
-  ADD PRIMARY KEY (`itemID`);
+
+CREATE TABLE `cart` (
+  `name` varchar(100) NOT NULL,
+  `price` varchar(100) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `total_price` varchar(100) NOT NULL,
+  `itemID` int(10) NOT NULL,
+  `consignmentStoreID` int(10) NOT NULL,
+  `rQ` int(10) NOT NULL,
+  `customerEmail` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
 
 ALTER TABLE `consignmentstore`
   ADD PRIMARY KEY (`consignmentStoreID`),
@@ -223,6 +224,14 @@ ALTER TABLE `orders`
 ALTER TABLE `shop`
   MODIFY `shopID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
+
+ALTER TABLE `cart`
+  ADD CONSTRAINT `FKconsignmentStoreIDcart` FOREIGN KEY (`consignmentStoreID`) REFERENCES `consignmentstore` (`consignmentStoreID`),
+  ADD CONSTRAINT `FKcustomerEmailcart` FOREIGN KEY (`customerEmail`) REFERENCES `customer` (`customerEmail`);
+  
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`itemID`, `customerEmail`);
+
 ALTER TABLE `consignmentstore`
   ADD CONSTRAINT `FKConsignmen625115` FOREIGN KEY (`tenantID`) REFERENCES `tenant` (`tenantID`);
 
@@ -240,5 +249,17 @@ ALTER TABLE `orderitem`
 ALTER TABLE `orders`
   ADD CONSTRAINT `FKOrders837071` FOREIGN KEY (`customerEmail`) REFERENCES `customer` (`customerEmail`),
   ADD CONSTRAINT `FKOrders959018` FOREIGN KEY (`consignmentStoreID`,`shopID`) REFERENCES `consignmentstore_shop` (`consignmentStoreID`, `shopID`);
-COMMIT;
 
+CREATE USER 'select_customer_tenant_user' IDENTIFIED WITH mysql_native_password BY 'password+++';
+GRANT SELECT ON myDb.customer TO 'select_customer_tenant_user';
+GRANT SELECT ON myDb.tenant TO 'select_customer_tenant_user';
+CREATE USER 'select_cart_user' IDENTIFIED WITH mysql_native_password BY 'password+++';
+GRANT SELECT ON myDb.cart TO 'select_cart_user';
+CREATE USER 'update_cart_user' IDENTIFIED WITH mysql_native_password BY 'password+++';
+GRANT SELECT ON myDb.cart TO 'update_cart_user';
+CREATE USER 'selectInsert_customer_user' IDENTIFIED WITH mysql_native_password BY 'password+++';
+GRANT SELECT, INSERT ON myDb.customer TO 'selectInsert_customer_user';
+CREATE USER 'CRUD_user' IDENTIFIED WITH mysql_native_password BY 'password+++';
+GRANT SELECT, INSERT, UPDATE, DELETE ON myDb.* TO 'CRUD_user';
+
+COMMIT;

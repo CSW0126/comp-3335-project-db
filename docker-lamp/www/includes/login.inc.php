@@ -1,9 +1,5 @@
 <?php
-require_once "../connection/mysqli_conn.php";
-//CLEAR CART
-$stmt = $conn->prepare("DELETE FROM cart");
-$stmt->execute();
-
+require_once "../connection/mysqli_conn_select_customer_tenant.php";
 
 if (isset($_POST['role'])) {
     $role = $_POST['role'];

@@ -1,7 +1,7 @@
 <?php
 //check submit button
 if (isset($_POST['submit'])) {
-    require '../connection/mysqli_conn.php';
+    require '../connection/mysqli_conn_selectInsert_customer.php';
 
     $customerEmail = $_POST['email'];
     $firstName = $_POST['fname'];

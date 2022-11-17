@@ -1,6 +1,6 @@
 <?php
 $hostname="db";
-$username = "CRUD_user";
+$username = "select_cart_user";
 $pwd="password+++";
 $db = "myDb";
 $conn=mysqli_connect($hostname,$username,$pwd,$db) ;

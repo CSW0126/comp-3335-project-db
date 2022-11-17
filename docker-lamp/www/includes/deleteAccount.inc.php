@@ -5,7 +5,8 @@ if (isset($_POST['confirm-btn'])) {
     session_start();
     $email = $_SESSION['Email'];
     //clean cart
-    $stmt = $conn->prepare("DELETE FROM cart");
+    $stmt = $conn->prepare("DELETE FROM cart WHERE customerEmail=?");
+    $stmtFindOrder->bind_param("s",$email);
     $stmt->execute();
     //find orders
     $stmtFindOrder = $conn->prepare("SELECT * FROM orders where customerEmail = ?");
