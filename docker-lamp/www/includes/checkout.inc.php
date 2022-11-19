@@ -5,8 +5,8 @@ if (isset($_SESSION['role'])) {
         require_once '../connection/mysqli_conn_customer_user.php';
     }
 }
-if (isset($_GET['count'])) {
-    $count = $_GET['count'];
+if (isset($_POST['count'])) {
+    $count = openssl_decrypt(base64_decode($_POST['count']), $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd']);
     $selectedShopArr = $_POST['shop'];
     $i = 0;
     
@@ -31,6 +31,21 @@ if (isset($_GET['count'])) {
         $grand_total = 0;
         //for each item 
         while ($row = mysqli_fetch_assoc($result)) {
+            $stmtCheckStock = $conn->prepare("SELECT * FROM goods WHERE goodsNumber=?");
+            $stmtCheckStock->bind_param("s", $row['itemID']);
+            $stmtCheckStock->execute();
+            $stockResult = $stmtCheckStock->get_result();
+            if ($row2 = mysqli_fetch_assoc($stockResult)){
+                if ($row['rQ'] > $row2['remainingStock']) {
+                    $total_price = $row2['remainingStock'] * $row2['stockPrice'];
+                    $stmt1 = $conn->prepare("UPDATE cart SET name=?, qty=?, consignmentStoreID=?, total_price=?, price=?, rQ=? WHERE itemID=? AND customerEmail=?");
+                    $stmt1->bind_param("siiiiiss",$row2['goodsName'], $row2['remainingStock'], $row2['consignmentStoreID'], $total_price, $row2['stockPrice'], $row2['remainingStock'], $row['itemID'], $_SESSION['Email']);
+                    $stmt1->execute();
+                    $_SESSION['showAlert'] = 'block';
+                    $_SESSION['message'] = 'Remaining Stock Not Enough.';
+                    exit();
+                }
+            }
             //add total
             $grand_total += $row['total_price'];
         }
@@ -39,7 +54,7 @@ if (isset($_GET['count'])) {
         //var
         $email = $_SESSION['Email'];
         $storeID = $rowArray['consignmentStoreID'];
-        $shopID = $selectedShopArr[$i];
+        $shopID = openssl_decrypt(base64_decode($selectedShopArr[$i]), $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd']);
         $status = 1;
         //run sql
         $stmtAddOrder->bind_param("siiis", $email, $storeID, $shopID, $status, $grand_total);

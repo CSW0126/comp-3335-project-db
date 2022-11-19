@@ -34,8 +34,10 @@ if (isset($_SESSION['role'])) {
         <div class="col-lg-10">
 
             <?php
-            $sql = "SELECT COUNT(*),consignmentStoreID FROM cart GROUP BY consignmentStoreID";
-            $rs = mysqli_query($conn, $sql);
+            $sql = $conn->prepare("SELECT COUNT(*),consignmentStoreID FROM cart WHERE customerEmail=? GROUP BY consignmentStoreID");
+            $sql->bind_param("s", $_SESSION['Email']);
+            $sql->execute();
+            $rs = $sql->get_result();
             $selectedshopIDArr = array();
 
             $count = 0;
@@ -114,7 +116,7 @@ if (isset($_SESSION['role'])) {
 
                                     <select name="Shop" class="form-control shopID" id="<?= $count - 1 ?>">
                                         <?php while ($shopArr = mysqli_fetch_assoc($shopChoice)) { ?>
-                                            <option value="<?= $shopArr['shopID'] ?>">
+                                            <option value="<?= base64_encode(openssl_encrypt($shopArr['shopID'], $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd'])) ?>">
                                                 <?php echo $shopArr['shopID'] ?>
                                             </option>
                                         <?php
@@ -172,18 +174,18 @@ require "footer.php";
                 }).get();
 
                 $.ajax({
-                    url: 'includes/checkout.inc.php?count=<?= $count ?>',
+                    url: 'includes/checkout.inc.php',
                     method: 'post',
                     cache: false,
                     data: {
+                        count: "<?= base64_encode(openssl_encrypt($count, $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd'])) ?>",
                         shop: selectedValues
                     },
                     success: function(response) {
                         console.log(response);
                         console.log('success');
                         console.log(selectedValues);
-                        window.location.href = "viewOrder.php";
-
+                        window.location.href = "includes/checkout_redirect.ini.php";
                     },
                     error: function() {
                         console.log('error');
