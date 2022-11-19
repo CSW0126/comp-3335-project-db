@@ -1,0 +1,4 @@
+
+docker-lamp/log/mysql_slow.log
+docker-lamp/log/mysql_general.log
+docker-lamp/log/mysql_error.log

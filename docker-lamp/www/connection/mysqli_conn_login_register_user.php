@@ -1,6 +1,6 @@
 <?php
 $hostname="db";
-$username = "selectInsert_customer_user";
+$username = "login_register_user";
 $pwd="password+++";
 $db = "myDb";
 $conn=mysqli_connect($hostname,$username,$pwd,$db) ;

@@ -39,7 +39,6 @@ require "header.php";
             </thead>
             <tbody>
                 <?php
-                require_once "connection/mysqli_conn.php";
                 $stmt = $conn->prepare("SELECT * FROM orders WHERE status != ? && customerEmail=? ORDER BY orderDateTime desc");
                 //select not finish order
                 $email = $_SESSION['Email'];

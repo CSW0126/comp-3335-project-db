@@ -49,7 +49,6 @@ require "header.php";
             </thead>
             <tbody>
                 <?php
-                require_once "connection/mysqli_conn.php";
                 //get tenant's store ID
                 if (isset($_SESSION['storeID'])) {
                     $tenantID = $_SESSION['tid'];

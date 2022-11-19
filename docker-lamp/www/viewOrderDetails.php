@@ -7,7 +7,6 @@ require "header.php";
 <link rel="stylesheet" href="css/viewOrderDetails.css">
 
 <?php
-require_once "connection/mysqli_conn.php";
 if (isset($_GET['orderID'])) {
     $role = $_SESSION['role'];
     if ($role == 'customer') {

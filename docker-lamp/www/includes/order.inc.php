@@ -1,7 +1,11 @@
 <?php
-require '../connection/mysqli_conn.php';
 session_start();
 
+if (isset($_SESSION['role'])) {
+    if ($_SESSION['role'] == "customer") {
+        require '../connection/mysqli_conn_customer_user.php';
+    }
+}
 if (isset($_POST['itemID'])) {
     $itemID = $_POST['itemID'];
     $itemName = $_POST['itemName'];

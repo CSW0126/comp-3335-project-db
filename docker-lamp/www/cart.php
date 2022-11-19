@@ -77,7 +77,6 @@ if (isset($_SESSION['role'])) {
                     </thead>
                     <tbody>
                         <?php
-                        require "connection/mysqli_conn.php";
                         $stmt = $conn->prepare("SELECT * FROM cart WHERE customerEmail = ?");
                         $stmt->bind_param("s", $_SESSION['Email']);
                         $stmt->execute();

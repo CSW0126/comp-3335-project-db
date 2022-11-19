@@ -1,8 +1,11 @@
 <?php
 
-require_once "../connection/mysqli_conn.php";
 session_start();
-
+if (isset($_SESSION['role'])) {
+    if ($_SESSION['role'] == "customer") {
+        require_once '../connection/mysqli_conn_customer_user.php';
+    }
+}
 if(isset($_GET['remove'])){
     $itemID = $_GET['remove'];
 

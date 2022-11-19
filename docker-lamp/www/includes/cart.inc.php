@@ -1,6 +1,10 @@
 <?php
-require_once "../connection/mysqli_conn_update_cart.php";
 session_start();
+if (isset($_SESSION['role'])) {
+    if ($_SESSION['role'] == "customer") {
+        require_once '../connection/mysqli_conn_customer_user.php';
+    }
+}
 if(isset($_POST['qty'])){
     $qty= $_POST['qty'];
     $itemID= $_POST['itemID'];

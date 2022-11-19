@@ -34,7 +34,6 @@ if (isset($_SESSION['role'])) {
         <div class="col-lg-10">
 
             <?php
-            require_once "connection/mysqli_conn.php";
             $sql = "SELECT COUNT(*),consignmentStoreID FROM cart GROUP BY consignmentStoreID";
             $rs = mysqli_query($conn, $sql);
             $selectedshopIDArr = array();

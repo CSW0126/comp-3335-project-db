@@ -250,16 +250,30 @@ ALTER TABLE `orders`
   ADD CONSTRAINT `FKOrders837071` FOREIGN KEY (`customerEmail`) REFERENCES `customer` (`customerEmail`),
   ADD CONSTRAINT `FKOrders959018` FOREIGN KEY (`consignmentStoreID`,`shopID`) REFERENCES `consignmentstore_shop` (`consignmentStoreID`, `shopID`);
 
-CREATE USER 'select_customer_tenant_user' IDENTIFIED WITH mysql_native_password BY 'password+++';
-GRANT SELECT ON myDb.customer TO 'select_customer_tenant_user';
-GRANT SELECT ON myDb.tenant TO 'select_customer_tenant_user';
-CREATE USER 'select_cart_user' IDENTIFIED WITH mysql_native_password BY 'password+++';
-GRANT SELECT ON myDb.cart TO 'select_cart_user';
-CREATE USER 'update_cart_user' IDENTIFIED WITH mysql_native_password BY 'password+++';
-GRANT SELECT ON myDb.cart TO 'update_cart_user';
-CREATE USER 'selectInsert_customer_user' IDENTIFIED WITH mysql_native_password BY 'password+++';
-GRANT SELECT, INSERT ON myDb.customer TO 'selectInsert_customer_user';
+CREATE USER 'login_register_user' IDENTIFIED WITH mysql_native_password BY 'password+++';
+GRANT SELECT, INSERT ON myDb.customer TO 'login_register_user';
+GRANT SELECT ON myDb.tenant TO 'login_register_user';
+
+CREATE USER 'customer_user' IDENTIFIED WITH mysql_native_password BY 'password+++';
+GRANT SELECT, UPDATE ON myDb.customer TO 'customer_user';
+GRANT SELECT, UPDATE ON myDb.goods TO 'customer_user';
+GRANT SELECT, INSERT, UPDATE, DELETE ON myDb.cart TO 'customer_user';
+GRANT SELECT, INSERT ON myDb.orders TO 'customer_user';
+GRANT SELECT, INSERT ON myDb.orderitem TO 'customer_user';
+GRANT SELECT ON myDb.consignmentstore TO 'customer_user';
+GRANT SELECT ON myDb.consignmentstore_shop TO 'customer_user';
+GRANT SELECT ON myDb.shop TO 'customer_user';
+
+
+CREATE USER 'tenant_user' IDENTIFIED WITH mysql_native_password BY 'password+++';
+GRANT SELECT, INSERT, UPDATE, DELETE ON myDb.goods TO 'tenant_user';
+GRANT SELECT, INSERT, UPDATE, DELETE ON myDb.orders TO 'tenant_user';
+GRANT SELECT, INSERT, UPDATE, DELETE ON myDb.orderitem TO 'tenant_user';
+GRANT SELECT ON myDb.consignmentstore TO 'tenant_user';
+GRANT SELECT ON myDb.consignmentstore_shop TO 'tenant_user';
+GRANT SELECT ON myDb.shop TO 'tenant_user';
+GRANT SELECT ON myDb.tenant TO 'tenant_user';
+
 CREATE USER 'CRUD_user' IDENTIFIED WITH mysql_native_password BY 'password+++';
 GRANT SELECT, INSERT, UPDATE, DELETE ON myDb.* TO 'CRUD_user';
-
 COMMIT;

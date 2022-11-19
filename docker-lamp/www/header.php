@@ -32,13 +32,15 @@ session_start();
     //check cartQ
     if (isset($_SESSION['role'])) {
         if ($_SESSION['role'] == "customer") {
-            require 'connection/mysqli_conn_select_cart.php';
+            require 'connection/mysqli_conn_customer_user.php';
             //get num of cart
             $stmt = $conn->prepare("SELECT * from cart WHERE customerEmail = ?");
             $stmt->bind_param("s", $_SESSION['Email']);
             $stmt->execute();
             $stmt->store_result();
             $rows = $stmt->num_rows();
+        } else if ($_SESSION['role'] == "tenant") {
+            require 'connection/mysqli_conn_tenant_user.php';
         }
     }
     ?>

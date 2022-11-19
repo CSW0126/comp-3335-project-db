@@ -1,7 +1,7 @@
 <?php
 //check submit button
 if (isset($_POST['submit'])) {
-    require '../connection/mysqli_conn_selectInsert_customer.php';
+    require '../connection/mysqli_conn.php';
 
     $customerEmail = $_POST['email'];
     $firstName = $_POST['fname'];
@@ -108,13 +108,8 @@ if (isset($_POST['submit'])) {
                             header("Location: ../signup.php?error=sqlError");
                             exit();
                         } else {
-                            //hash encrypt
-                            //$hashPwd = password_hash($password, PASSWORD_DEFAULT);
-                            
                             //hash password
                             $password = password_hash($password, PASSWORD_DEFAULT);
-                            
-                            
                             mysqli_stmt_bind_param($stmt, "sssss", $customerEmail, $firstName, $lastName, $password, $phoneNumber);
                             mysqli_stmt_execute($stmt);
                             header("Location: ../signup.php?signup=success");

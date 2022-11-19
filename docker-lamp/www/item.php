@@ -89,7 +89,6 @@ require "header.php";
                     $num = 0;
                     //get item
                     if (isset($_SESSION['storeID'])) {
-                        require_once "connection/mysqli_conn.php";
                         $tenantID = $_SESSION['tid'];
                         $storeID = $_SESSION['storeID'];
                         for ($i = 0; $i < count($storeID); $i++) {

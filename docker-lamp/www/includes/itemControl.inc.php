@@ -1,7 +1,7 @@
 <?php
 //add
+require_once '../connection/mysqli_conn_tenant_user.php';
 if (isset($_POST['add'])) {
-    require_once "../connection/mysqli_conn.php";
     $consignmentStoreID = $_POST['addConShop'];
     $goodsName = $_POST['name'];
     $stockPrice = $_POST['price'];
@@ -16,7 +16,6 @@ if (isset($_POST['add'])) {
     exit();
     //edit    
 } else if (isset($_POST['save'])) {
-    require_once "../connection/mysqli_conn.php";
     $consignmentStoreID = $_POST['editConShop'];
     $goodsNumber = $_POST['goodsNumber'];
     $goodsName = $_POST['name'];

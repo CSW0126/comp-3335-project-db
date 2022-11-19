@@ -26,7 +26,6 @@ require "header.php";
                 </figure>
                 <ul class="ul-info">
                     <?php
-                    require_once 'connection/mysqli_conn.php';
                     $user = $_SESSION['Email'];
                     $sql = "SELECT customerEmail,firstName,lastName,phoneNumber FROM customer WHERE customerEmail = '$user' ";
                     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));

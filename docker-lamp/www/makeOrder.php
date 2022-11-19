@@ -47,7 +47,6 @@ if (isset($_SESSION['role'])) {
     ?>
     <div class="row mt-2 pb-3">
         <?php
-        require_once 'connection/mysqli_conn.php';
         $goodStatusAva = 1;
         $remainQuan = 0;
         $stmt = $conn->prepare("SELECT * From goods where status =? && remainingStock > ? ORDER BY case when goodsName = 'fff' then 1 else 2 end, goodsName ASC");

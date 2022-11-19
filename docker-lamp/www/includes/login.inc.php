@@ -1,5 +1,5 @@
 <?php
-require_once "../connection/mysqli_conn_select_customer_tenant.php";
+require_once "../connection/mysqli_conn.php";
 
 if (isset($_POST['role'])) {
     $role = $_POST['role'];
@@ -86,8 +86,7 @@ if (isset($_POST['role'])) {
 
                     //get row
                     if ($row = mysqli_fetch_assoc($result)) {
-                        
-                        $pwdCheck = ($password == $row['password']);
+                        $pwdCheck = password_verify($password,$row['password']);
                         //if false
                         if ($pwdCheck == false) {
                             header("Location: ../login.php?error=wrong&role=tenant");

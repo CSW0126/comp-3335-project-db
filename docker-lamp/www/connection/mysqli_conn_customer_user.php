@@ -1,6 +1,6 @@
 <?php
 $hostname="db";
-$username = "update_cart_user";
+$username = "customer_user";
 $pwd="password+++";
 $db = "myDb";
 $conn=mysqli_connect($hostname,$username,$pwd,$db) ;
