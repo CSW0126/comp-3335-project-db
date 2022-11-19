@@ -78,17 +78,14 @@ if (isset($_SESSION['role'])) {
                             while ($row = mysqli_fetch_assoc($result)) { ?>
                                 <tr class="text-center">
                                     <th> <?= $row['itemID'] ?> </th>
-                                    <input type="hidden" class="itemID" value="<?= $row['itemID'] ?>">
 
                                     <th><?= $row['name'] ?></th>
 
                                     <th><i class="fas fa-dollar-sign"></i>&nbsp;&nbsp;<?= number_format($row['price'], 2) ?></th>
-                                    <input type="hidden" class="itemPrice" value="<?= $row['price'] ?>">
 
                                     <th class="align-items-center">
                                         <?= $row['qty'] ?>
                                     </th>
-                                    <input type="hidden" class="rQ" value="<?= $row['rQ'] ?>">
                                     <th><i class="fas fa-dollar-sign"></i>&nbsp;&nbsp; <?= $row['total_price'] ?></th>
 
                                     <th><?php

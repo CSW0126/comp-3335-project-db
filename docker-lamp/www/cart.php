@@ -87,17 +87,16 @@ if (isset($_SESSION['role'])) {
                         ?>
                             <tr class="text-center">
                                 <th> <?= $row['itemID'] ?> </th>
-                                <input type="hidden" class="itemID" value="<?= $row['itemID'] ?>">
+                                <input type="hidden" class="itemID" value="<?= base64_encode(openssl_encrypt($row['itemID'], $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd'])) ?>">
 
                                 <th><?= $row['name'] ?></th>
 
                                 <th><i class="fas fa-dollar-sign"></i>&nbsp;&nbsp;<?= number_format($row['price'], 2) ?></th>
-                                <input type="hidden" class="itemPrice" value="<?= $row['price'] ?>">
 
                                 <th class="align-items-center">
                                     <select name="QTY" class="form-control itemQty">
                                         <?php for ($i = 1; $i <= $row['rQ']; $i++) : ?>
-                                            <option value="<?php echo $i; ?>" <?php
+                                            <option value="<?php echo base64_encode(openssl_encrypt($i, $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd'])); ?>" <?php
                                                                                 if ($row['qty'] == $i) {
                                                                                     echo 'selected="selected"';
                                                                                 }
@@ -105,7 +104,6 @@ if (isset($_SESSION['role'])) {
                                         <?php endfor; ?>
                                     </select>
                                 </th>
-                                <input type="hidden" class="rQ" value="<?= $row['rQ'] ?>">
                                 <th><i class="fas fa-dollar-sign"></i>&nbsp;&nbsp; <?= $row['total_price'] ?></th>
 
                                 <th><?= $row['consignmentStoreID'] ?></th>

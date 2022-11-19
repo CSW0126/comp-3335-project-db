@@ -6,22 +6,25 @@ if (isset($_SESSION['role'])) {
     }
 }
 if(isset($_POST['qty'])){
-    $qty= $_POST['qty'];
-    $itemID= $_POST['itemID'];
-    $price= $_POST['price'];
-    $rQ = $_POST['rQ'];
+    $itemID= openssl_decrypt(base64_decode($_POST['itemID']), $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd']);
+    $qty= openssl_decrypt(base64_decode($_POST['qty']), $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd']);
+    $stmt = $conn->prepare("SELECT * FROM goods WHERE goodsNumber=?");
+    $stmt->bind_param("s", $itemID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = mysqli_fetch_assoc($result)) {
+        $price=$row['stockPrice'];
+        $rQ = $row['remainingStock'];
+        if($qty > $rQ){
+            $qty = $rQ;
+        }
+        $totalPrice = $qty * $price;
 
-    if($qty > $rQ){
-        $qty = $rQ;
+        $stmt1 = $conn->prepare("UPDATE cart SET name=?, qty=?, consignmentStoreID=?, total_price=?, price=?, rQ=? WHERE itemID=? AND customerEmail=?");
+        $stmt1->bind_param("siiiiiss",$row['goodsName'], $qty, $row['consignmentStoreID'], $totalPrice, $price, $rQ,$itemID, $_SESSION['Email']);
+        $stmt1->execute();
     }
 
-    // connect to database to check item price is change or not
-
-    $totalPrice = $qty * $price;
-
-    $stmt = $conn->prepare("UPDATE cart SET qty=?, total_price=? WHERE itemID=? AND customerEmail=?");
-    $stmt->bind_param("isis",$qty,$totalPrice,$itemID, $_SESSION['Email']);
-    $stmt->execute();
 }
 
 
