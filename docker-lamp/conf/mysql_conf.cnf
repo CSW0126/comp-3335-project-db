@@ -1,5 +1,5 @@
 [mysqld]
-log-output  = FILE
+log-output = FILE,TABLE
 log_error = /var/log/mysql/mysql_error.log
 general_log_file = /var/log/mysql/mysql_general.log
 general_log = 1
