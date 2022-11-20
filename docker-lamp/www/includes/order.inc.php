@@ -1,6 +1,9 @@
 <?php
 session_start();
-
+if ($_SESSION['role'] != "customer") {
+    header("Location: ../index.php");
+    exit();
+}
 if (isset($_SESSION['role'])) {
     if ($_SESSION['role'] == "customer") {
         require '../connection/mysqli_conn_customer_user.php';

@@ -1,4 +1,9 @@
 <?php
+session_start();
+if ($_SESSION['role'] != "customer") {
+    header("Location: index.php");
+    exit();
+}
 require "header.php";
 ?>
 <link rel="stylesheet" href="css/signup.css">

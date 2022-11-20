@@ -1,4 +1,12 @@
 <?php
+session_start();
+ob_start();
+if (($_SESSION['role'] == "tenant") ) {
+} else if (($_SESSION['role'] == "customer")) {}
+else { 
+    header("Location: index.php");
+    exit();
+}
 require "header.php";
 ?>
 <!-- Bootstrap CSS -->
@@ -258,4 +266,5 @@ if (isset($_GET['orderID'])) {
 
 <?php
 require "footer.php";
+ob_end_flush();
 ?>

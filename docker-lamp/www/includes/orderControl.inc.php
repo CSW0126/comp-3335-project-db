@@ -1,5 +1,8 @@
 <?php
-
+if ($_SESSION['role'] != "tenant") {
+    header("Location: ../index.php");
+    exit();
+}
 require '../connection/mysqli_conn_tenant_user.php';
 if(isset($_POST['awaiting'])){
     if(isset($_GET['orderID'])){

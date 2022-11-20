@@ -1,5 +1,10 @@
 <?php
 //add
+session_start();
+if ($_SESSION['role'] != "tenant") {
+    header("Location: ../index.php");
+    exit();
+}
 require_once '../connection/mysqli_conn_tenant_user.php';
 if (isset($_POST['add'])) {
     $consignmentStoreID = $_POST['addConShop'];
@@ -29,6 +34,6 @@ if (isset($_POST['add'])) {
     header("Location: ../item.php?edit=success&id=" . $goodsNumber);
     exit();
 } else {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }

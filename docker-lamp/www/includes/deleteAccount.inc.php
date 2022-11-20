@@ -1,5 +1,9 @@
 <?php
-
+session_start();
+if ($_SESSION['role'] != "customer") {
+    header("Location: ../index.php");
+    exit();
+}
 if (isset($_POST['confirm-btn'])) {
     require_once "../connection/mysqli_conn.php";
     session_start();

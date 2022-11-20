@@ -1,4 +1,9 @@
 <?php
+session_start();
+if ($_SESSION['role'] != "tenant") {
+    header("Location: index.php");
+    exit();
+}
 require "header.php";
 ?>
 <!-- Bootstrap CSS -->

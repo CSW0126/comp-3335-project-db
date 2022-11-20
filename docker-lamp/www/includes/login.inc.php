@@ -133,4 +133,7 @@ if (isset($_POST['role'])) {
         header("Location: ../index.php");
         exit();
     }
-}
+} else {
+        header("Location: ../index.php");
+        exit();
+    }

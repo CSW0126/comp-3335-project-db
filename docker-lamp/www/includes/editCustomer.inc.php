@@ -1,5 +1,9 @@
 <?php
 session_start();
+if ($_SESSION['role'] != "customer") {
+    header("Location: ../index.php");
+    exit();
+}
 //check submit button
 if (isset($_POST['submit'])) {
     require '../connection/mysqli_conn.php';
