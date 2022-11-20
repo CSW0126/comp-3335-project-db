@@ -16,6 +16,9 @@ require "header.php";
     .red {
     background-color: red !important;
     }
+    .container {
+        max-width: 1500px;
+    }
 </style>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
