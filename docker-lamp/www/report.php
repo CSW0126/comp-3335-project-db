@@ -26,7 +26,7 @@ require "header.php";
         if ($_GET['status'] == "deleted") {
             echo '
                     <div class="alert alert-success mt-2" data-aos="zoom-in-up" role="alert">
-                        Order #' . $_GET['orderID'] . ' Deleted!
+                        Order #' . openssl_decrypt(base64_decode($_GET['orderID']), $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd']) . ' Deleted!
                     </div>';
         }
     }

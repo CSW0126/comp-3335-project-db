@@ -77,7 +77,7 @@ require "header.php";
                             ?></p>
                         </td>
                         <td>$&nbsp;&nbsp;<?= $row['totalPrice'] ?></td>
-                        <td><a href="viewOrderDetails.php?orderID=<?= $row['orderID'] ?>"><i class="fas fa-search fa-2x"></i></a></td>
+                        <td><a href="viewOrderDetails.php?orderID=<?= base64_encode(openssl_encrypt($row['orderID'], $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd'])) ?>"><i class="fas fa-search fa-2x"></i></a></td>
                     </tr>
 
 
