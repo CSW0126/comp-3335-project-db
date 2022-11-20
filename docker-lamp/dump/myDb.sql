@@ -258,7 +258,7 @@ CREATE USER 'customer_user' IDENTIFIED WITH mysql_native_password BY 'password++
 GRANT SELECT, UPDATE ON myDb.customer TO 'customer_user';
 GRANT SELECT, UPDATE ON myDb.goods TO 'customer_user';
 GRANT SELECT, INSERT, UPDATE, DELETE ON myDb.cart TO 'customer_user';
-GRANT SELECT, INSERT ON myDb.orders TO 'customer_user';
+GRANT SELECT, INSERT, UPDATE ON myDb.orders TO 'customer_user';
 GRANT SELECT, INSERT ON myDb.orderitem TO 'customer_user';
 GRANT SELECT ON myDb.consignmentstore TO 'customer_user';
 GRANT SELECT ON myDb.consignmentstore_shop TO 'customer_user';

@@ -61,7 +61,7 @@ if (isset($_GET['orderID'])) {
                 if ($_GET['status'] == "success") {
                     echo '
                     <div class="alert alert-success mt-2" data-aos="zoom-in-up" role="alert">
-                        Status change to Awaiting!
+                        Status changed!
                     </div>';
                 }
             }
@@ -85,8 +85,12 @@ if (isset($_GET['orderID'])) {
                                 <a href="#DeleteOrderModal" class="btn btn-danger w-100" data-toggle="modal"><i class="far fa-trash-alt"></i> <span>&nbsp;Delete Order</span></a>
                             </div>
                         <?php
-                            }
-                        ?>
+                            }else if ($row['status'] == 2 && $role == 'customer'){?>
+                                
+                            <div class="mt-2">
+                                <a href="#CompleteOrderModal" class="btn btn-success w-100" data-toggle="modal"><i class="far fa-trash-alt"></i> <span>&nbsp;Complete Order</span></a>
+                            </div>
+                        <?php } ?>
 
                     </div>
                 </div>
@@ -243,6 +247,28 @@ if (isset($_GET['orderID'])) {
                     <div class="modal-footer">
                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                         <input type="submit" class="btn btn-success" name="awaiting" value="Ready">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+        <!-- complete Modal HTML -->
+        <div id="CompleteOrderModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="includes/orderControlForCustomer.inc.php?orderID=<?= $_GET['orderID'] ?>">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Change Status</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Is the order complete?</p>
+                        <p class="text-warning"><small>This action cannot be undone.</small></p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="submit" class="btn btn-success" name="completed" value="Completed">
                     </div>
                 </form>
             </div>
