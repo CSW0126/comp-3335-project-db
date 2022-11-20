@@ -12,10 +12,7 @@ if (isset($_POST['submit'])) {
 
     //check empty fields
     if (empty($customerEmail) || empty($firstName) || empty($lastName) || empty($password) || empty($passwordRepeat) || empty($phoneNumber)) {
-        header("Location: ../signup.php?error=emptyfields&email=" . $customerEmail .
-            "&fname=" . $fname .
-            "&lname=" . $lastName .
-            "&phone=" . $phoneNumber);
+        header("Location: ../signup.php?error=emptyfields");
         exit();
     //check all   
     } else if ((!filter_var($customerEmail, FILTER_VALIDATE_EMAIL)) && ((!preg_match("/^[a-zA-Z0-9]{3,255}$/", $firstName)) && (!preg_match("/^[a-zA-Z0-9]{3,255}$/", $lastName))) && !preg_match("/^[25689]{1}\d{7}$/", $phoneNumber)) {
@@ -25,29 +22,24 @@ if (isset($_POST['submit'])) {
 
     //check valid email
     else if (!filter_var($customerEmail, FILTER_VALIDATE_EMAIL)) {
-        header("Location: ../signup.php?error=invalidmail&fname=" . $fname .
-            "&lname=" . $lastName .
-            "&phone=" . $phoneNumber);
+        header("Location: ../signup.php?error=invalidmail");
         exit();
 
         //check name 
     } else if ((!preg_match("/^[a-zA-Z0-9]{3,255}$/", $firstName)) || (!preg_match("/^[a-zA-Z0-9]{3,255}$/", $lastName))) {
-        header("Location: ../signup.php?error=invalidname&email=" . $customerEmail .
-            "&phone=" . $phoneNumber);
+        header("Location: ../signup.php?error=invalidname");
         exit();
 
         //check phone 
     } else if (!preg_match("/^[25689]{1}\d{7}$/", $phoneNumber)) {
-        header("Location: ../signup.php?error=invalidphone&email=" . $customerEmail .
-            "&fname=" . $fname .
-            "&lname=" . $lastName);
+        header("Location: ../signup.php?error=invalidphone");
 
         //check password
     } else if ($password !== $passwordRepeat) {
-        header("Location: ../signup.php?error=invalidpassword&email=" . $customerEmail .
-            "&fname=" . $fname .
-            "&lname=" . $lastName .
-            "&phone=" . $phoneNumber);
+        header("Location: ../signup.php?error=invalidpassword");
+        exit();
+    } else if (!preg_match("#.*^(?=.{8,20})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$#", $password)) {
+        header("Location: ../signup.php?error=pwdnotstrong");
         exit();
         //form validated
     } else {

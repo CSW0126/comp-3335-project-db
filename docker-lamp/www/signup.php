@@ -39,6 +39,8 @@ require "header.php";
                             //phone duplicate
                         } else if ($_GET['error'] == "phoneTaken") {
                             echo '<div id="error">Phone already exists!</div>';
+                        } else if ($_GET['error'] == "pwdnotstrong") {
+                            echo '<div id="error">Password Not Enough Strong: Password must be at least 8 characters in length and must contain at least one number, one upper case letter, one lower case letter and one special character.</div>';
                         }
                     } else if (isset($_GET['signup'])) {
                         if ($_GET['signup'] == "success") {

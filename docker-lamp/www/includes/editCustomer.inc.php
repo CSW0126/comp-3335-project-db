@@ -17,10 +17,7 @@ if (isset($_POST['submit'])) {
 
     //check empty fields
     if (empty($firstName) || empty($lastName) || empty($password) || empty($passwordRepeat) || empty($phoneNumber)) {
-        header("Location: ../editCustomerProfile.php?error=emptyfields&email=" . $customerEmail .
-            "&fname=" . $fname .
-            "&lname=" . $lastName .
-            "&phone=" . $phoneNumber);
+        header("Location: ../editCustomerProfile.php?error=emptyfields");
         exit();
         //check all   
     } else if (((!preg_match("/^[a-zA-Z0-9]{3,255}$/", $firstName)) && (!preg_match("/^[a-zA-Z0-9]{3,255}$/", $lastName))) && !preg_match("/^[25689]{1}\d{7}$/", $phoneNumber)) {
@@ -29,22 +26,19 @@ if (isset($_POST['submit'])) {
 
         //check name 
     } else if ((!preg_match("/^[a-zA-Z0-9]{3,255}$/", $firstName)) || (!preg_match("/^[a-zA-Z0-9]{3,255}$/", $lastName))) {
-        header("Location: ../editCustomerProfile.php?error=invalidname&email=" . $customerEmail .
-            "&phone=" . $phoneNumber);
+        header("Location: ../editCustomerProfile.php?error=invalidname");
         exit();
 
         //check phone 
     } else if (!preg_match("/^[25689]{1}\d{7}$/", $phoneNumber)) {
-        header("Location: ../editCustomerProfile.php?error=invalidphone&email=" . $customerEmail .
-            "&fname=" . $fname .
-            "&lname=" . $lastName);
+        header("Location: ../editCustomerProfile.php?error=invalidphone");
 
         //check password
     } else if ($password !== $passwordRepeat) {
-        header("Location: ../editCustomerProfile.php?error=invalidpassword&email=" . $customerEmail .
-            "&fname=" . $fname .
-            "&lname=" . $lastName .
-            "&phone=" . $phoneNumber);
+        header("Location: ../editCustomerProfile.php?error=invalidpassword");
+        exit();
+    } else if (!preg_match("#.*^(?=.{8,20})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$#", $password)) {
+        header("Location: ../editCustomerProfile.php?error=pwdnotstrong");
         exit();
         //form validated
     } else {
