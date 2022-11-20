@@ -264,7 +264,7 @@ table.table .avatar {
 #mysql_general_log_table_wrapper {
   margin-top: 15px;
 }
-#mysql_general_log_alert_table_wrapper {
+#mysql_general_alert_log_table_wrapper {
   margin-top: 15px;
 }
 #mysql_slow_log_table_wrapper {
