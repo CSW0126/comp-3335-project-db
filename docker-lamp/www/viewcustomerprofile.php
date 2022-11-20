@@ -32,8 +32,10 @@ require "header.php";
                 <ul class="ul-info">
                     <?php
                     $user = $_SESSION['Email'];
-                    $sql = "SELECT customerEmail,firstName,lastName,phoneNumber FROM customer WHERE customerEmail = '$user' ";
-                    $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+                    $stmt = $conn->prepare("SELECT customerEmail,firstName,lastName,phoneNumber FROM customer WHERE customerEmail = ?");
+                    $stmt->bind_param("s",$user);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
                     $resultCheck = mysqli_num_rows($result);
 
                     if ($resultCheck > 0) {
