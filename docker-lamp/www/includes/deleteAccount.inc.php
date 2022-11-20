@@ -6,11 +6,10 @@ if ($_SESSION['role'] != "customer") {
 }
 if (isset($_POST['confirm-btn'])) {
     require_once "../connection/mysqli_conn.php";
-    session_start();
     $email = $_SESSION['Email'];
     //clean cart
     $stmt = $conn->prepare("DELETE FROM cart WHERE customerEmail=?");
-    $stmtFindOrder->bind_param("s",$email);
+    $stmt->bind_param("s",$email);
     $stmt->execute();
     //find orders
     $stmtFindOrder = $conn->prepare("SELECT * FROM orders where customerEmail = ?");
