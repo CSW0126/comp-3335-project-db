@@ -20,7 +20,7 @@
                     search: {
                         return: true,
                     },
-                    ajax: './includes/mysql_general.inc.php',
+                    ajax: './includes/mysql_general_alert.inc.php',
                     "createdRow": function(row, data, dataIndex) {
                         if (data[5].match("^DROP") == "DROP") {
                             $(row).addClass('red');
