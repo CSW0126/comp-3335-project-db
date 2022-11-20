@@ -150,9 +150,7 @@ require "footer.php";
         $(".itemQty").on('change', function() {
             var $el = $(this).closest('tr');
             var itemID = $el.find(".itemID").val();
-            var price = $el.find(".itemPrice").val();
             var qty = $el.find(".itemQty").val();
-            var rQ = $el.find(".rQ").val();
             $.ajax({
                 url: "includes/cart.inc.php",
                 method: 'post',
@@ -160,14 +158,17 @@ require "footer.php";
                 data: {
                     qty: qty,
                     itemID: itemID,
-                    price: price,
-                    rQ: rQ,
                 },
                 success: function(response) {
                     console.log(response);
+                },
+                complete: function(response) {
+                    location.reload(true);
+                },
+                error: function(response) {
+                    location.reload(true);
                 }
             });
-            location.reload(true);
         });
     });
 </script>
