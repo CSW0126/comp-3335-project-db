@@ -276,4 +276,11 @@ GRANT SELECT ON myDb.tenant TO 'tenant_user';
 
 CREATE USER 'CRUD_user' IDENTIFIED WITH mysql_native_password BY 'password+++';
 GRANT SELECT, INSERT, UPDATE, DELETE ON myDb.* TO 'CRUD_user';
+
+CREATE USER 'mysql_log_monitoring_user' IDENTIFIED WITH mysql_native_password BY 'password+++';
+GRANT SELECT ON mysql.general_log TO 'mysql_log_monitoring_user';
+GRANT SELECT ON mysql.slow_log TO 'mysql_log_monitoring_user';
+GRANT SELECT ON performance_schema.error_log TO 'mysql_log_monitoring_user';
+
+
 COMMIT;

@@ -24,22 +24,28 @@ if ($_SESSION['role'] != "admin") {
  */
  
 // DB table to use
-$table = 'general_log';
+$table = 'slow_log';
  
 // Table's primary key
-$primaryKey = 'event_time';
+$primaryKey = 'start_time';
  
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-    array( 'db' => 'event_time', 'dt' => 0 ),
+    array( 'db' => 'start_time', 'dt' => 0 ),
     array( 'db' => 'user_host',  'dt' => 1 ),
-    array( 'db' => 'thread_id',   'dt' => 2 ),
-    array( 'db' => 'server_id',     'dt' => 3 ),
-    array( 'db' => 'command_type',   'dt' => 4 ),
-    array( 'db' => 'argument',     'dt' => 5 ),
+    array( 'db' => 'query_time',   'dt' => 2 ),
+    array( 'db' => 'lock_time',     'dt' => 3 ),
+    array( 'db' => 'rows_sent',   'dt' => 4 ),
+    array( 'db' => 'rows_examined',     'dt' => 5 ),
+    array( 'db' => 'db',     'dt' => 6 ),
+    array( 'db' => 'last_insert_id',     'dt' => 7 ),
+    array( 'db' => 'insert_id',     'dt' => 8 ),
+    array( 'db' => 'server_id',     'dt' => 9 ),
+    array( 'db' => 'sql_text',     'dt' => 10 ),
+    array( 'db' => 'thread_id',     'dt' => 11 ),
 );
  
 // SQL server connection information

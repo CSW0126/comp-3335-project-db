@@ -21,17 +21,17 @@ require "header.php";
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript" class="init">
     $(document).ready(function () {
-        $('#mysql_general_alert_log_table tfoot th').each(function (index) {
+        $('#mysql_error_log_table tfoot th').each(function (index) {
             var title = $(this).text();
             $(this).html('<input type="text" placeholder="Search ' + title + '" id="' + index +'"/>');
         });
-        var table = $('#mysql_general_alert_log_table').DataTable({
+        var table = $('#mysql_error_log_table').DataTable({
             processing: true,
             serverSide: true,
             search: {
                 return: true,
             },
-            ajax: './includes/mysql_general_alert.inc.php',
+            ajax: './includes/mysql_error.inc.php',
             order: [[0, 'desc']],
             "createdRow": function(row, data, dataIndex) {
                 if (data[5].match("^DROP") == "DROP") {
@@ -39,13 +39,12 @@ require "header.php";
                 }
             },
         });
-        $("#mysql_general_alert_log_table tfoot th").children("input").on('keypress', function(e) {
+        $("#mysql_error_log_table tfoot th").children("input").on('keypress', function(e) {
             var col_id = $(this).attr("id");
             if (e.which == 13){
                 table.columns(col_id).search(this.value).draw();
             }
         });
-        // $('#mysql_general_log_table tbody tr td:contains("DROP")').css('background-color', 'red');
     });
 </script>
 
@@ -55,31 +54,31 @@ require "header.php";
         <div class="table-title">
             <div class="row">
                 <div class="col-sm-6">
-                    <h2><b>MySQL General Alert Log</b></h2>
+                    <h2><b>MySQL Error Log</b></h2>
                 </div>
             </div>
         </div>
-        <table id="mysql_general_alert_log_table" class="table table-striped table-border">
-           <thead>
+        <table id="mysql_error_log_table" class="table table-striped table-border" style="width:100%">
+            <thead>
                 <tr>
-                    <th>Event Time</th>
-                    <th>User Host</th>
+                    <th>Logged Time</th>
                     <th>Thread ID</th>
-                    <th>Server ID</th>
-                    <th>Command Type</th>
-                    <th>Argument</th>
+                    <th>PRIO</th>
+                    <th>Error Code</th>
+                    <th>Subsystem</th>
+                    <th>Data</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th>Event Time</th>
-                    <th>User Host</th>
+                    <th>Logged Time</th>
                     <th>Thread ID</th>
-                    <th>Server ID</th>
-                    <th>Command Type</th>
-                    <th>Argument</th>
+                    <th>PRIO</th>
+                    <th>Error Code</th>
+                    <th>Subsystem</th>
+                    <th>Data</th>
                 </tr>
-            </tfoot> 
+            </tfoot>
         </table>
     </div>
 </div>

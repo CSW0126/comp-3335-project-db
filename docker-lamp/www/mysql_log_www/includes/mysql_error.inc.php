@@ -24,29 +24,29 @@ if ($_SESSION['role'] != "admin") {
  */
  
 // DB table to use
-$table = 'general_log';
+$table = 'error_log';
  
 // Table's primary key
-$primaryKey = 'event_time';
+$primaryKey = 'LOGGED';
  
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-    array( 'db' => 'event_time', 'dt' => 0 ),
-    array( 'db' => 'user_host',  'dt' => 1 ),
-    array( 'db' => 'thread_id',   'dt' => 2 ),
-    array( 'db' => 'server_id',     'dt' => 3 ),
-    array( 'db' => 'command_type',   'dt' => 4 ),
-    array( 'db' => 'argument',     'dt' => 5 ),
+    array( 'db' => 'LOGGED', 'dt' => 0 ),
+    array( 'db' => 'THREAD_ID',  'dt' => 1 ),
+    array( 'db' => 'PRIO',   'dt' => 2 ),
+    array( 'db' => 'ERROR_CODE',     'dt' => 3 ),
+    array( 'db' => 'SUBSYSTEM',   'dt' => 4 ),
+    array( 'db' => 'DATA',     'dt' => 5 ),
 );
  
 // SQL server connection information
 $sql_details = array(
     'user' => 'root',
     'pass' => 'test',
-    'db'   => 'mysql',
+    'db'   => 'performance_schema',
     'host' => 'db'
 );
  

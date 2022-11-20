@@ -1,9 +1,7 @@
 <?php
+ob_start();
 require "header.php";
 ?>
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="css/hover.css">
 <!-- check role -->
 <?php
 if (isset($_SESSION['role'])) {
@@ -15,7 +13,11 @@ if (isset($_SESSION['role'])) {
     header("Location: login.php?role=customer");
     exit();
 }
+ob_end_flush();
 ?>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="css/hover.css">
 <link rel="stylesheet" href="css/order.css">
 <!-- body -->
 <div class="container order-body">

@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require "header.php";
 ?>
 
@@ -74,6 +75,7 @@ require "header.php";
                         </div>';
             } else {
                 header("Location: index.php");
+                ob_end_flush();
                 exit();
             }
         }
