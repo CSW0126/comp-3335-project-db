@@ -70,9 +70,9 @@ require "header.php";
                             ?>
                         "><?php
                             if ($row['status'] == 1) {
-                                echo 'Delivery';
+                                echo 'Waiting to Confirm';
                             } else if ($row['status'] == 2) {
-                                echo 'Awaiting';
+                                echo 'Ready to Pick';
                             }
                             ?></p>
                         </td>

@@ -104,10 +104,10 @@ if (isset($_GET['orderID'])) {
                             <?php
                             //Delivery
                             if ($row['status'] == 1) {
-                                echo '<h4 class=" mb-1 text-white border float-left bg-warning p-2">Delivery</h4>';
+                                echo '<h4 class=" mb-1 text-white border float-left bg-warning p-2">Waiting to Confirm</h4>';
                                 //Awaiting
                             } else if ($row['status'] == 2) {
-                                echo '<h4 class=" mb-1 text-white border float-left bg-success p-2">Awaiting</h4>';
+                                echo '<h4 class=" mb-1 text-white border float-left bg-success p-2">Ready to pick</h4>';
                                 //Completed
                             } else if ($row['status'] == 3) {
                                 echo '<h4 class="mb-1 text-white border float-left bg-info p-2">Completed</h4>';
