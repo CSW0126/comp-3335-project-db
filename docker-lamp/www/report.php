@@ -100,7 +100,7 @@ require "header.php";
                             </td>
                             <td>$&nbsp;&nbsp;<?= $orderRow['totalPrice'] ?></td>
                             <td><?=$orderRow['shopID']?></td>
-                            <td><a href="viewOrderDetails.php?orderID=<?= $orderRow['orderID'] ?>"><i class="fas fa-search fa-2x"></i></a></td>
+                            <td><a href="viewOrderDetails.php?orderID=<?= base64_encode(openssl_encrypt($orderRow['orderID'], $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd'])) ?>"><i class="fas fa-search fa-2x"></i></a></td>
                         </tr>
                 <?php
                     }

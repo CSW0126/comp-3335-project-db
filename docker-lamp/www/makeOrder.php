@@ -86,11 +86,7 @@ ob_end_flush();
                         </div>
                         <div class="card-footer p-1">
                             <form action="includes/order.inc.php" class="form-submit" method="post">
-                                <input type="hidden" name="itemID" value="<?= $row['goodsNumber'] ?>">
-                                <input type="hidden" name="itemName" value="<?= $row['goodsName'] ?>">
-                                <input type="hidden" name="itemPrice" value="<?= $row['stockPrice'] ?>">
-                                <input type="hidden" name="consignmentStoreID" value="<?= $row['consignmentStoreID'] ?>">
-                                <input type="hidden" name="rQ" value="<?= $row['remainingStock'] ?>">
+                                <input type="hidden" name="itemID" value="<?= base64_encode(openssl_encrypt($row['goodsNumber'], $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd'])) ?>">
 
                                 <?php
                                 if ($row['status'] == 1) {

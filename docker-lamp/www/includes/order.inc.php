@@ -10,11 +10,21 @@ if (isset($_SESSION['role'])) {
     }
 }
 if (isset($_POST['itemID'])) {
-    $itemID = $_POST['itemID'];
-    $itemName = $_POST['itemName'];
-    $itemPrice = $_POST['itemPrice'];
-    $consignmentStoreID = $_POST['consignmentStoreID'];
-    $rQ = $_POST['rQ'];
+    $itemID = openssl_decrypt(base64_decode($_POST['itemID']), $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd']);
+    $stmtGoods = $conn->prepare("SELECT * FROM goods WHERE goodsNumber=?");
+
+    $stmtGoods->bind_param("s", $itemID);
+    $stmtGoods->execute();
+    $goodsResult = $stmtGoods->get_result();
+    if ($row1 = mysqli_fetch_assoc($goodsResult)) {
+        $itemName = $row1['goodsName'];
+        $itemPrice = $row1['stockPrice'];
+        $consignmentStoreID = $row1['consignmentStoreID'];
+        $rQ = $row1['remainingStock'];
+    } else {
+        header("Location: ../makeOrder.php?msg=addfail");
+        exit();
+    }
     $qty = 1;
 
     $stmt = $conn->prepare("SELECT itemID FROM cart WHERE itemID = ? AND customerEmail=?");
@@ -24,8 +34,6 @@ if (isset($_POST['itemID'])) {
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
     $id = $row['itemID'];
-
-
 
     if (!$id) {
         $sql = $conn->prepare("INSERT INTO cart (name,price,qty,total_price,itemID,consignmentStoreID,rQ,customerEmail) VALUE (?,?,?,?,?,?,?,?)");

@@ -45,7 +45,7 @@ if (isset($_POST['role'])) {
                             $_SESSION['phoneNumber'] = $row['phoneNumber'];
                             $_SESSION['role'] = "customer";
                             $_SESSION['encrypt_method'] = 'DES-ECB';
-                            $_SESSION['encrypt_passwd'] = '*Y7RHKdn8fwYwDTK8m3EJp%bi57FuyRiA&5FkU$JpO%BNCVMAD';
+                            $_SESSION['encrypt_passwd'] = bin2hex(random_bytes(18));
                             header("Location: ../index.php?login=success&role=customer");
                             exit();
 
@@ -110,7 +110,7 @@ if (isset($_POST['role'])) {
 
                             $_SESSION['storeID'] = $storeID;
                             $_SESSION['encrypt_method'] = 'DES-ECB';
-                            $_SESSION['encrypt_passwd'] = '*Y7RHKdn8fwYwDTK8m3EJp%bi57FuyRiA&5FkU$JpO%BNCVMAD';
+                            $_SESSION['encrypt_passwd'] = bin2hex(random_bytes(18));
 
                             header("Location: ../index.php?login=success&role=tenant");
                             exit();

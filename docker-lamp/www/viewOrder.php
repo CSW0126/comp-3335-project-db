@@ -133,7 +133,7 @@ require "header.php";
                             <p class="card-text text-center text-primary">Completed</p>
                         </td>
                         <td>$&nbsp;&nbsp;<?= $finRow['totalPrice'] ?></td>
-                        <td><a href="viewOrderDetails.php?orderID=<?= $finRow['orderID'] ?>"><i class="fas fa-search fa-2x"></i></a></td>
+                        <td><a href="viewOrderDetails.php?orderID=<?= base64_encode(openssl_encrypt($finRow['orderID'], $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd'])) ?>"><i class="fas fa-search fa-2x"></i></a></td>
                     </tr>
                 <?php
                 }

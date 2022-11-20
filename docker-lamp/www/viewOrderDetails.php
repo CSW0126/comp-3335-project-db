@@ -21,7 +21,7 @@ if (isset($_GET['orderID'])) {
         //check valid orderID and login customerEmail
         $stmt = $conn->prepare("SELECT * FROM orders WHERE orderID = ? && customerEmail = ?");
         $email = $_SESSION['Email'];
-        $orderID = $_GET['orderID'];
+        $orderID = openssl_decrypt(base64_decode($_GET['orderID']), $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd']);
         $stmt->bind_param("is", $orderID, $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -29,7 +29,7 @@ if (isset($_GET['orderID'])) {
     } else if ($role == 'tenant') {
         if (isset($_SESSION['tid'])) {
             $stmt = $conn->prepare("SELECT * FROM orders, consignmentstore, tenant WHERE consignmentstore.consignmentStoreID = orders.consignmentStoreID AND consignmentstore.tenantID = tenant.tenantID AND orderID = ? AND tenant.tenantID = ?");
-            $orderID = $_GET['orderID'];
+            $orderID = openssl_decrypt(base64_decode($_GET['orderID']), $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd']);
             $stmt->bind_param("is", $orderID, $_SESSION['tid']);
             $stmt->execute();
             $result = $stmt->get_result();

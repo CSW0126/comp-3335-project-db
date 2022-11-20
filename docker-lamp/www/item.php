@@ -150,7 +150,7 @@ require "header.php";
                                                     <div class="form-group">
                                                         <label>Name</label>
                                                         <input type="text" class="form-control" name="name" value="<?= $itemRow['goodsName'] ?>" required>
-                                                        <input type="hidden" name="goodsNumber" value="<?= $itemRow['goodsNumber'] ?>">
+                                                        <input type="hidden" name="goodsNumber" value="<?= base64_encode(openssl_encrypt($itemRow['goodsNumber'], $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd'])) ?>">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Price</label>
@@ -166,7 +166,7 @@ require "header.php";
                                                             <?php
                                                             for ($j = 0; $j < count($storeID); $j++) {
                                                             ?>
-                                                                <option value="<?= $storeID[$j] ?>" <?php
+                                                                <option value="<?= base64_encode(openssl_encrypt($storeID[$j], $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd'])) ?>" <?php
                                                                                                     //each selected for the original store ID
                                                                                                     if ($itemRow['consignmentStoreID'] == $storeID[$j]) {
                                                                                                         echo 'selected';
@@ -194,12 +194,12 @@ require "header.php";
                                                     <div class="form-group">
                                                         <label>Status</label>
                                                         <select name="status" id="status" class="form-control" required>
-                                                            <option value="1" <?php
+                                                            <option value="<?= base64_encode(openssl_encrypt(1, $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd'])) ?>" <?php
                                                                                 if ($itemRow['status'] == 1) {
                                                                                     echo 'selected';
                                                                                 }
                                                                                 ?>>Available</option>
-                                                            <option value="2" <?php
+                                                            <option value="<?= base64_encode(openssl_encrypt(2, $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd'])) ?>" <?php
                                                                                 if ($itemRow['status'] == 2) {
                                                                                     echo 'selected';
                                                                                 }
@@ -256,7 +256,7 @@ require "header.php";
                                 <?php
                                 for ($j = 0; $j < count($storeID); $j++) {
                                 ?>
-                                    <option value="<?= $storeID[$j] ?>">
+                                    <option value="<?= base64_encode(openssl_encrypt($storeID[$j], $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd'])) ?>">
                                         <?php
                                         //get shop name
                                         $stmtGetStoreName = $conn->prepare("SELECT * FROM consignmentstore where consignmentStoreID=?");
@@ -278,8 +278,8 @@ require "header.php";
                         <div class="form-group">
                             <label>Status</label>
                             <select name="status" id="status" class="form-control" required>
-                                <option value="1">Available</option>
-                                <option value="2">Unavailable</option>
+                                <option value="<?= base64_encode(openssl_encrypt(1, $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd'])) ?>">Available</option>
+                                <option value="<?= base64_encode(openssl_encrypt(2, $_SESSION['encrypt_method'], $_SESSION['encrypt_passwd'])) ?>">Unavailable</option>
                             </select>
                         </div>
                     </div>
