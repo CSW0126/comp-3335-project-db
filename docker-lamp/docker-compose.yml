@@ -8,7 +8,7 @@ services:
         volumes:
             - ./www:/var/www/html/
         environment:
-            - TZ=Asia/Taipei
+            - TZ=Asia/Hong_Kong
         depends_on:
                 - db
     db:
@@ -19,7 +19,7 @@ services:
                 chmod 644 /etc/mysql/conf.d/*.cnf
                 && /entrypoint.sh mysqld"
         environment:
-            TZ: Asia/Taipei
+            TZ: Asia/Hong_Kong
             MYSQL_ROOT_PASSWORD: test 
             MYSQL_DATABASE: myDb 
             MYSQL_USER: user
@@ -41,7 +41,7 @@ services:
             PMA_PORT: '3306'
             PMA_USER: 'root'
             PMA_PASSWORD: "test"
-            TZ: Asia/Taipei
+            TZ: Asia/Hong_Kong
         depends_on:
             - db
 volumes:
