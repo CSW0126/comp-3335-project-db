@@ -50,8 +50,8 @@ $columns = array(
  
 // SQL server connection information
 $sql_details = array(
-    'user' => 'root',
-    'pass' => 'test',
+    'user' => 'mysql_log_monitoring_user',
+    'pass' => 'password+++',
     'db'   => 'mysql',
     'host' => 'db'
 );
