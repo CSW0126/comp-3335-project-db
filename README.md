@@ -1,5 +1,11 @@
 
 Run command:
+
+```
+git clone https://github.com/CSW0126/comp-3335-project-db.git
+```
+
+
 ```
 cd docker-lamp
 docker-compose up -d
@@ -28,3 +34,5 @@ Open log page at [http://localhost:8001/mysql_log_www/index.php](http://localhos
 username: root
 pwd:      test
 ```
+
+Youtube Demo: [https://youtu.be/mXZWAgTajmk](https://youtu.be/mXZWAgTajmk)
